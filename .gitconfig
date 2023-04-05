@@ -1,0 +1,19 @@
+# This is Git's per-user configuration file.
+[user]
+	email = j.fernandez.vidal@accenture.com
+	name = jesusfervid-acn
+[advice]
+	detachedHead = false
+[core]
+	autocrlf = input
+	quotepath = false
+[alias]
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
+	settings = config --global -e
+	tree = log --graph --oneline --decorate --abbrev-commit --all
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = false
