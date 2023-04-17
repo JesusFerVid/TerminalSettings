@@ -1,5 +1,11 @@
 CADENCE_DIR="$HOME/Repos/Docker/Cadence"
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/completion.zsh.inc'; fi
+
 function cadence-get() {
 	echo -e "$CYAN➤ Downloading Cadence files...$RESET"
 	if wget -c https://raw.githubusercontent.com/uber/cadence/master/docker/docker-compose.yml &> /dev/null && wget -c https://raw.githubusercontent.com/uber/cadence/master/docker/prometheus/prometheus.yml &> /dev/null;
@@ -19,4 +25,9 @@ function cadence-get() {
 function cadence-start(){
 	echo -e "$CYAN➤$RESET Starting Cadence server... "
 	docker-compose -f $CADENCE_DIR/docker-compose.yml up
+}
+
+function cadence-es-start(){
+	echo -e "$CYAN➤$RESET Starting Cadence server with elasticsearch... "
+	docker-compose -f $CADENCE_DIR/docker-compose-es.yml up
 }

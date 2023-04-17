@@ -65,6 +65,8 @@ ZSH_THEME="hack"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -76,6 +78,7 @@ plugins=(
 	git
 	git-extras
 	developer-tools
+	pyenv
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 )
@@ -83,6 +86,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
