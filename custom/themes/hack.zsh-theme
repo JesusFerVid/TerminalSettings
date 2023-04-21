@@ -38,15 +38,15 @@ prompt_dir() {
 prompt_git() {
 	if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
 		if [[ "$(git rev-parse --symbolic-full-name HEAD 2> /dev/null)" = "HEAD" ]]; then
-			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}➦ "
+			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}↪ "
 		else
 			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} "
 		fi
 	fi
 
-	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ±%{$fg[yellow]%}"
-	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[yellow]%}"
+	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔"
+	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ±"
+	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}%{$reset_color%}"
 
 	echo -n "$(git_prompt_info) "
 }
@@ -65,8 +65,7 @@ prompt_virtualenv() {
 prompt_end() {
 	echo ""
 	# echo -n "└▶ $ "
-	# echo "⚡︎ "
-	echo "$ "
+	echo -n "$ "
 } 
 
 # Create prompt string
