@@ -113,3 +113,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # 
 # Aliases declared in $ZSH_CUSTOM/plugins
+
+# export VERTX_CONFIG_PATH=config.yaml

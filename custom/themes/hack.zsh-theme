@@ -48,7 +48,11 @@ prompt_git() {
 	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ±"
 	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}%{$reset_color%}"
 
-	echo -n "$(git_prompt_info) "
+	if [[ $SHOW_GIT = 'TRUE' ]];
+	then
+		echo -n "$(git_prompt_info)"
+	fi
+	echo -n "  "
 }
 
 # Virtual env

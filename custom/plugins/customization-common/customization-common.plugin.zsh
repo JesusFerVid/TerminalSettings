@@ -20,6 +20,9 @@ WHITE='\033[1;37m'
 SETTINGS_DIR="$HOME/Repos/TerminalSettings"
 SETTINGS_SCRIPT="$SETTINGS_DIR/apply.zsh"
 
+# SETTINGS
+SHOW_GIT='TRUE'
+
 function install-zsh-plugins() {
 	echo -e "$CYAN➤ Installing autossuggestions plugin...$RESET"
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
@@ -49,6 +52,14 @@ function path(){
 	echo $PATH | tr ':' '\n'
 }
 
+function show_git(){
+	SHOW_GIT='TRUE'
+}
+
+function hide_git(){
+	SHOW_GIT='FALSE'
+}
+
 # Variables
 export EDITOR='nano'
 export VISUAL="$EDITOR"
@@ -57,6 +68,8 @@ export VISUAL="$EDITOR"
 alias config="code $SETTINGS_DIR"
 alias reload="zsh $SETTINGS_SCRIPT && source $HOME/.zshrc"
 alias hist="nano $HOME/.zsh_history"
+alias sg="show_git"
+alias hg="hide_git"
 
 # Hackers stuff
 alias please="sudo "

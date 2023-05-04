@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	email = j.fernandez.vidal@accenture.com
-	name = jesusfervid-acn
+	name = Jesús Fernández Vidal
 [advice]
 	detachedHead = false
 [core]
