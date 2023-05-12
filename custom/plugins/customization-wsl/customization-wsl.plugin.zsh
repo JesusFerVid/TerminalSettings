@@ -1,5 +1,5 @@
 # Hackers stuff
-# TODO: USE %USERPROFILE% if possible
-alias pat="echo TODO"
-alias tel="echo TODO"
-alias ter="echo TODO"
+REPOS_DIR="/mnt/d/JesusFerVid/Repositorios"
+
+alias pat="cat $REPOS_DIR/pat"
+alias tel="cd $REPOS_DIR/DAM/TFC/Telemetry"

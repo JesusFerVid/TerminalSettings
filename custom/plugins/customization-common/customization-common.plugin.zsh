@@ -66,6 +66,7 @@ export VISUAL="$EDITOR"
 
 # Zsh settings
 alias config="code $SETTINGS_DIR"
+alias ter="cd $SETTINGS_DIR"
 alias reload="zsh $SETTINGS_SCRIPT && source $HOME/.zshrc"
 alias hist="nano $HOME/.zsh_history"
 alias sg="show_git"
