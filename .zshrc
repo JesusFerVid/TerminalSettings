@@ -72,21 +72,11 @@ ZSH_THEME="hacklite"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	customization-common
-	customization-mac
-	git
-	git-extras
-	developer-tools
-	pyenv
-	zsh-autosuggestions
-	zsh-syntax-highlighting
-)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting git git-extras customization-common)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -113,5 +103,3 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # 
 # Aliases declared in $ZSH_CUSTOM/plugins
-
-# export VERTX_CONFIG_PATH=config.yaml
