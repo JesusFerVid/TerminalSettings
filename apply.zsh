@@ -12,7 +12,10 @@ CURRENT_DIRECTORY=`dirname -- $0`
 # CYAN='\033[0;36m'
 
 # echo -e "$CYAN➤ Copying home directory files...$RESET"
-cp $CURRENT_DIRECTORY/.gitconfig $CURRENT_DIRECTORY/.zshrc $CURRENT_DIRECTORY/.zprofile $HOME
+# TODO: ON DEMAND
+cp $CURRENT_DIRECTORY/.gitconfig $HOME
+cp $CURRENT_DIRECTORY/.zshrc $HOME
+cp $CURRENT_DIRECTORY/.zprofile $HOME
 # echo -e "$GREEN✓$RESET Done."
 
 # echo -e "$CYAN➤ Copying oh-my-zsh custom directory...$RESET"
