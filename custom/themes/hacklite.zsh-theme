@@ -34,6 +34,24 @@ prompt_dir() {
 	echo -n "%B%{$fg[blue]%}$current_dir%{$reset_color%}  "
 }
 
+# Auxiliar function to check if we need to pull and/or push
+git_upstream_status() {
+	UPSTREAM=${1:-'@{u}'}
+	LOCAL=$(git rev-parse @)
+	REMOTE=$(git rev-parse "$UPSTREAM")
+	BASE=$(git merge-base @ "$UPSTREAM")
+
+	if [ $LOCAL = $REMOTE ]; then
+		echo -n ""
+	elif [ $LOCAL = $BASE ]; then
+		echo -n "%{$fg[green]%}🡧"
+	elif [ $REMOTE = $BASE ]; then
+		echo -n "%{$fg[blue]%}🡥"
+	else
+		echo -n "%{$fg[green]%}🡧%{$fg[blue]%}🡥"
+	fi
+}
+
 # Git branch and working tree status
 prompt_git() {
 	if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
@@ -46,7 +64,7 @@ prompt_git() {
 
 	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔"
 	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ±"
-	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}%{$reset_color%}"
+	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} $(git_upstream_status)%{$reset_color%}"
 
 	if [[ $SHOW_GIT = 'TRUE' ]];
 	then
@@ -54,6 +72,7 @@ prompt_git() {
 	fi
 	echo -n "  "
 }
+
 
 # Virtual env
 prompt_virtualenv() {
