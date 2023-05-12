@@ -73,7 +73,6 @@ alias hg="hide_git"
 
 # Hackers stuff
 alias please="sudo "
-alias pat="cat $HOME/Repos/pat"
 alias bash="/bin/bash"
 
 # Apps

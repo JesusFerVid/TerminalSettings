@@ -3,6 +3,7 @@ source /etc/zsh_command_not_found
 # Hackers stuff
 alias editenv="sudo nano /etc/environment && sudo nano /etc/zsh/zshenv"
 alias editgrub="sudo nano /etc/default/grub"
+alias pat="cat $HOME/Repos/pat"
 
 # Groups
 alias adduser="sudo gpasswd -a"
