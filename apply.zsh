@@ -34,10 +34,10 @@ source $HOME/.zshrc
 # echo -e "$CYAN➤ Enabling plugins...$RESET"
 case $OS in
 	linux*)
-		omz plugin enable customization-linux customization-wsl
+		omz plugin enable customization-linux customization-wsl &> /dev/null
 	;;
 	darwin*)
-		omz plugin enable customization-mac developer-tools pyenv
+		omz plugin enable customization-mac developer-tools pyenv &> /dev/null
 	;;
 	msys*)
 		echo "Windows detected"
