@@ -55,7 +55,7 @@ function git-destroy()
 }
 
 # Sets aliases to quickly change accounts in gh CLI
-function gh-aliases() {
+function ghaliases() {
 	local CONFIG_DIR="$HOME/.config/gh"
 	local CONFIG_FILE="$CONFIG_DIR/hosts.yml"
 	local WORK_CONFIG="$CONFIG_DIR/hosts.work.yml"
