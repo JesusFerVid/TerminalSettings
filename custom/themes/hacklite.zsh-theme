@@ -36,25 +36,27 @@ prompt_dir() {
 
 # Auxiliar function to check if we need to pull and/or push
 git_upstream_status() {
-	if [[ $SHOW_GIT = 'FALSE' ]] || [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" != "true" ]]; then
-		return
-	fi
+	if [[ $SHOW_GIT = 'TRUE' ]]; then
+		if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
+			if git rev-parse --abbrev-ref HEAD@{upstream} &> /dev/null; then
+				git fetch -q
 
-	git fetch -q
+				UPSTREAM=${1:-'@{u}'}
+				LOCAL=$(git rev-parse @)
+				REMOTE=$(git rev-parse "$UPSTREAM")
+				BASE=$(git merge-base @ "$UPSTREAM")
 
-	UPSTREAM=${1:-'@{u}'}
-	LOCAL=$(git rev-parse @)
-	REMOTE=$(git rev-parse "$UPSTREAM")
-	BASE=$(git merge-base @ "$UPSTREAM")
-
-	if [ $LOCAL = $REMOTE ]; then
-		echo -n ""
-	elif [ $LOCAL = $BASE ]; then
-		echo -n "%{$fg[green]%}🡧"
-	elif [ $REMOTE = $BASE ]; then
-		echo -n "%{$fg[blue]%}🡥"
-	else
-		echo -n "%{$fg[green]%}🡧%{$fg[blue]%}🡥"
+				if [ $LOCAL = $REMOTE ]; then
+					echo -n ""
+				elif [ $LOCAL = $BASE ]; then
+					echo -n "%{$fg[green]%}🡧"
+				elif [ $REMOTE = $BASE ]; then
+					echo -n "%{$fg[blue]%}🡥"
+				else
+					echo -n "%{$fg[green]%}🡧%{$fg[blue]%}🡥"
+				fi
+			fi
+		fi
 	fi
 }
 
