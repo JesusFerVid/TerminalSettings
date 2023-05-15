@@ -36,6 +36,12 @@ prompt_dir() {
 
 # Auxiliar function to check if we need to pull and/or push
 git_upstream_status() {
+	if [[ $SHOW_GIT = 'FALSE' ]] || [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" != "true" ]]; then
+		return
+	fi
+
+	git fetch -q
+
 	UPSTREAM=${1:-'@{u}'}
 	LOCAL=$(git rev-parse @)
 	REMOTE=$(git rev-parse "$UPSTREAM")
