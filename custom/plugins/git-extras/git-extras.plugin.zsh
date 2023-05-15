@@ -54,6 +54,17 @@ function git-destroy()
 	echo -e "$GREEN✓$RESET Done"
 }
 
+# Sets aliases to quickly change accounts in gh CLI
+function gh-aliases() {
+	local CONFIG_DIR="$HOME/.config/gh"
+	local CONFIG_FILE="$CONFIG_DIR/hosts.yml"
+	local WORK_CONFIG="$CONFIG_DIR/hosts.work.yml"
+	local CORPORATIVE_CONFIG="$CONFIG_DIR/hosts.corporative.yml"
+
+	gh alias set --shell work "cp $WORK_CONFIG $CONFIG_FILE && gh auth status"
+	gh alias set --shell corporative "cp $CORPORATIVE_CONFIG $CONFIG_FILE && gh auth status"
+}
+
 # git flow print
 # Prints branches names
 function gfprint()
