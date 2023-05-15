@@ -65,6 +65,11 @@ function gh-aliases() {
 	gh alias set --shell corporative "cp $CORPORATIVE_CONFIG $CONFIG_FILE && gh auth status"
 }
 
+# Short, easy way to clone a repo from GitHub using the token of the logged account in gh CLI
+function ghclone() {
+	git clone "https://$(gh auth token)@github.com/$1.git"
+}
+
 # git flow print
 # Prints branches names
 function gfprint()
