@@ -60,9 +60,6 @@ function hide_git(){
 	SHOW_GIT='FALSE'
 }
 
-# Variables
-export EDITOR='nano'
-export VISUAL="$EDITOR"
 
 # Zsh settings
 alias config="code $SETTINGS_DIR"
