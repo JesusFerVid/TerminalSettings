@@ -73,9 +73,6 @@ alias hg="hide_git"
 alias please="sudo "
 alias bash="/bin/bash"
 
-# Apps
-alias kubectl="minikube kubectl --"
-
 # Misc
 alias destroy="rm -rf"
 alias cache="rm -r ~/.cache"
