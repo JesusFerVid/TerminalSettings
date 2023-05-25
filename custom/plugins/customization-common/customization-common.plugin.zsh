@@ -60,6 +60,17 @@ function hide_git(){
 	SHOW_GIT='FALSE'
 }
 
+function killport() {
+	PID=`lsof -t -i:$1`
+	echo -e "$RED➤ Killing process with PID $PID running on port $1...$RESET"
+	kill $PID
+	if [[ $? = 0 ]]; then
+		echo -e "$GREEN✓$RESET Done"
+	else
+		echo -e "$RED✘$RESET Error"
+	fi
+}
+
 
 # Zsh settings
 alias config="code $SETTINGS_DIR"
