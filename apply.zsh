@@ -21,7 +21,7 @@ cp $CURRENT_DIRECTORY/.zshrc $HOME
 
 if [[ $OS == darwin* ]];
 then
-		cp $CURRENT_DIRECTORY/.zprofile $HOME
+	cp $CURRENT_DIRECTORY/.zprofile $HOME
 fi
 
 # echo -e "$GREEN✓$RESET Done."
