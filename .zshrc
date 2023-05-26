@@ -97,7 +97,7 @@ export LANG=en_US.UTF-8
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# MasMovil environment variables
+# Other environment variables
 export CONFIG_FILE="application.properties"
 export VERTX_CONFIG_PATH="config.yaml"
 export MAS_STACK_AUTHN_SA="$HOME/.auth/sa_provision_master.json"
