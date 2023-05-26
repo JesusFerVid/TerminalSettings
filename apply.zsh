@@ -16,7 +16,6 @@ OS=$(echo $OSTYPE)
 
 # echo -e "$CYAN➤ Copying home directory files...$RESET"
 cp $CURRENT_DIRECTORY/.gitconfig $HOME
-cp $CURRENT_DIRECTORY/gh/* $GH_CONFIG_DIR
 cp $CURRENT_DIRECTORY/.zshrc $HOME
 
 if [[ $OS == darwin* ]];
