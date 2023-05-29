@@ -74,7 +74,7 @@ prompt_git() {
 	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ±"
 	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} $(git_upstream_status)%{$reset_color%}"
 
-	if [[ $SHOW_GIT = 'TRUE' ]];
+	if [ "$SHOW_GIT" = "TRUE" ] && [ "$HIDE_GIT" != "TRUE" ]
 	then
 		echo -n "$(git_prompt_info)"
 	fi
