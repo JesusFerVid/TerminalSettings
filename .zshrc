@@ -62,6 +62,9 @@ ZSH_THEME="hacklite"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
+# Get rid of "No end of line" mark
+PROMPT_EOL_MARK=''
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
