@@ -27,12 +27,12 @@ function cadence-get() {
 }
 
 function cadence-start(){
-	echo -e "$CYAN➤$RESET Starting Cadence server... "
+	echo -e "$CYAN➤ Starting Cadence server...$RESET"
 	docker-compose -f $CADENCE_DIR/docker-compose.yml up
 }
 
 function cadence-es-start(){
-	echo -e "$CYAN➤$RESET Starting Cadence server with elasticsearch... "
+	echo -e "$CYAN➤ Starting Cadence server with elasticsearch...$RESET"
 	docker-compose -f $CADENCE_DIR/docker-compose-es.yml up
 }
 
@@ -51,6 +51,7 @@ alias kprod='kubectl --context=gke_mm-k8s-prod-01_europe-west1_mm-k8s-prod-01'
 
 # Shortcut to kubectl
 alias k='kubectl'
+alias mk='minikube'
 
 # Change default namespace
 # Usage: `ns my-namespace` and then `k get pods` will list pods on `my-namespace`
