@@ -49,11 +49,11 @@ git_upstream_status() {
 				if [ $LOCAL = $REMOTE ]; then
 					echo -n ""
 				elif [ $LOCAL = $BASE ]; then
-					echo -n "%{$fg[blue]%}🡧"
+					echo -n "%{$fg[blue]%}↙"
 				elif [ $REMOTE = $BASE ]; then
-					echo -n "%{$fg[green]%}🡥"
+					echo -n "%{$fg[green]%}↗"
 				else
-					echo -n "%{$fg[blue]%}🡧%{$fg[green]%}🡥"
+					echo -n "%{$fg[blue]%}↙%{$fg[green]%}↗"
 				fi
 			fi
 		fi
