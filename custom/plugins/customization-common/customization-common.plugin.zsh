@@ -83,6 +83,7 @@ alias hg="hide_git"
 # Hackers stuff
 alias please="sudo "
 alias bash="/bin/bash"
+alias clear="printf '\33c\e[3J'"
 
 # Misc
 alias destroy="rm -rf"

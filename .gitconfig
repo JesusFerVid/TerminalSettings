@@ -6,8 +6,14 @@
 	quotepath = false
 [alias]
 	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
+	email = config user.email
+	fpush = push --force-with-lease
+	ffpush = push --force
+	now = commit --amend --date=now
 	settings = config --global -e
 	tree = log --graph --oneline --decorate --abbrev-commit --all
+	ureset = reset --hard @{u}
+	user = config user.name
 [init]
 	defaultBranch = main
 [push]

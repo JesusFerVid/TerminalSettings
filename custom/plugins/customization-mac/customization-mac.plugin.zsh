@@ -1,4 +1,5 @@
 REPOS_DIR="$HOME/Repos"
+AUTH_DIR="$HOME/.auth"
 
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home"
 
@@ -24,10 +25,8 @@ function docker-stop(){
 }
 
 # Hackers stuff
-alias pat="cat $REPOS_DIR/pat"
-alias pat2="cat $REPOS_DIR/pat2"
-
-alias health="curl http://0.0.0.0:8080/health" 
+alias pat="cat $AUTH_DIR/pat 2> /dev/null"
+alias pat2="cat $AUTH_DIR/pat2 2> /dev/null"
 
 # GitHub
 alias prt="code $REPOS_DIR/pr_template.md"
