@@ -1,21 +1,36 @@
 # Theme created from 'bira' and 'agnoster' themes
 # Uses symbols from agnoster theme: #  ±  ➦ ✘ ⚡ ⚙
-# And these, too: ▶
+# And these, too: ▶ ➤ ᛘ ↪ ↙ ↗ ✔
 
+PROMPT_START_ICON="➤"
+PROMPT_FAIL_ICON="✘"
+PROMPT_SUPER_ICON="⚡"
+PROMPT_BG_ICON="⚙"
+
+GIT_BRANCH_ICON=""
+GIT_DETACHED_ICON="➦"
+GIT_PULL_ICON="↙"
+GIT_PUSH_ICON="↗"
+GIT_CLEAN_ICON="✔"
+GIT_DIRTY_ICON="±"
+
+VENV_PREFIX_ICON="<"
+VENV_SUFFIX_ICON=">"
+
+PROMPT_END_ICON="$"
 
 # Starting shape
 prompt_start() {
-	# echo -n "▶ "
-	echo -n "➤ "
+	echo -n "$PROMPT_START_ICON "
 }
 
 # Symbols (failed command, root and background jobs)
 prompt_status() {
 	local -a symbols
 	
-	[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-	[[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-	[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+	[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$PROMPT_FAIL_ICON"
+	[[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$PROMPT_SUPER_ICON"
+	[[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$PROMPT_BG_ICON"
 	
 	[[ -n "$symbols" ]] && echo -n "$symbols "
 }
@@ -49,11 +64,11 @@ git_upstream_status() {
 				if [ $LOCAL = $REMOTE ]; then
 					echo -n ""
 				elif [ $LOCAL = $BASE ]; then
-					echo -n "%{$fg[blue]%}↙"
+					echo -n "%{$fg[blue]%}$GIT_PULL_ICON"
 				elif [ $REMOTE = $BASE ]; then
-					echo -n "%{$fg[green]%}↗"
+					echo -n "%{$fg[green]%}$GIT_PUSH_ICON"
 				else
-					echo -n "%{$fg[blue]%}↙%{$fg[green]%}↗"
+					echo -n "%{$fg[blue]%}$GIT_PULL_ICON%{$fg[green]%}$GIT_PUSH_ICON"
 				fi
 			fi
 		fi
@@ -64,14 +79,14 @@ git_upstream_status() {
 prompt_git() {
 	if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
 		if [[ "$(git rev-parse --symbolic-full-name HEAD 2> /dev/null)" = "HEAD" ]]; then
-			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}↪ "
+			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}$GIT_DETACHED_ICON "
 		else
-			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}ᛘ "
+			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}$GIT_BRANCH_ICON "
 		fi
 	fi
 
-	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔"
-	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} ±"
+	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} $GIT_CLEAN_ICON"
+	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} $GIT_DIRTY_ICON"
 	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} $(git_upstream_status)%{$reset_color%}"
 
 	if [ "$SHOW_GIT" = "TRUE" ] && [ "$HIDE_GIT" != "TRUE" ]
@@ -84,8 +99,8 @@ prompt_git() {
 
 # Virtual env
 prompt_virtualenv() {
-	ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[green]%}<"
-	ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="> %{$reset_color%}"
+	ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[green]%}$VENV_PREFIX_ICON"
+	ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="$VENV_SUFFIX_ICON %{$reset_color%}"
 	ZSH_THEME_VIRTUALENV_PREFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX"
 	ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 
@@ -95,7 +110,7 @@ prompt_virtualenv() {
 # Ending shape and user symbol in new line
 prompt_end() {
 	echo ""
-	echo -n "$ "
+	echo -n "$PROMPT_END_ICON "
 } 
 
 # Create prompt string
