@@ -17,7 +17,7 @@ LIGHTCYAN='\033[1;36m'
 WHITE='\033[1;37m'
 
 # PATHS
-SETTINGS_DIR="$HOME/Repos/TerminalSettings"
+SETTINGS_DIR="$REPOS_DIR/TerminalSettings" # REPOS_DIR will take different values in each OS
 SETTINGS_SCRIPT="$SETTINGS_DIR/apply.zsh"
 
 # SETTINGS
