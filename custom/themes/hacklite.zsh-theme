@@ -1,6 +1,6 @@
 # Theme created from 'bira' and 'agnoster' themes
 # Uses symbols from agnoster theme: #  ±  ➦ ✘ ⚡ ⚙
-# And these, too: ▶ ➤ ᛘ ↪ ↙ ↗ ✔
+# And these, too: ▶ ➤ ᛘ ↪ ※ ↙ ↗ ✔
 
 PROMPT_START_ICON="➤"
 PROMPT_FAIL_ICON="✘"
@@ -9,6 +9,7 @@ PROMPT_BG_ICON="⚙"
 
 GIT_BRANCH_ICON=""
 GIT_DETACHED_ICON="➦"
+GIT_SYNCHED_ICON="✔"
 GIT_PULL_ICON="↙"
 GIT_PUSH_ICON="↗"
 GIT_CLEAN_ICON="✔"
@@ -62,7 +63,7 @@ git_upstream_status() {
 				BASE=$(git merge-base @ "$UPSTREAM")
 
 				if [ $LOCAL = $REMOTE ]; then
-					echo -n ""
+					echo -n "%{$fg[cyan]%}$GIT_SYNCHED_ICON"
 				elif [ $LOCAL = $BASE ]; then
 					echo -n "%{$fg[blue]%}$GIT_PULL_ICON"
 				elif [ $REMOTE = $BASE ]; then
