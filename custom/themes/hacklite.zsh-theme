@@ -97,7 +97,7 @@ prompt_git() {
 
 	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} $GIT_CLEAN_ICON"
 	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} $GIT_DIRTY_ICON"
-	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} $(git_upstream_status)%{$reset_color%}"
+	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} $(git_upstream_status)"
 
 	if [ "$SHOW_GIT" = "TRUE" ] && [ "$HIDE_GIT" != "TRUE" ]
 	then
@@ -110,7 +110,7 @@ prompt_git() {
 # Virtual env
 prompt_virtualenv() {
 	ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[green]%}$VENV_PREFIX_ICON"
-	ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="$VENV_SUFFIX_ICON %{$reset_color%}"
+	ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="$VENV_SUFFIX_ICON "
 	ZSH_THEME_VIRTUALENV_PREFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX"
 	ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 
@@ -120,14 +120,14 @@ prompt_virtualenv() {
 # Ending shape and user symbol in new line
 prompt_end() {
 	echo ""
-	echo -n "$PROMPT_END_ICON "
+	echo -n "%{$reset_color%}$PROMPT_END_ICON  "
 } 
 
 # Create prompt string
 build_prompt() {
 	RETVAL=$?
 	# prompt_start
-	prompt_status
+	# prompt_status
 	prompt_context
 	prompt_dir
 	prompt_git
