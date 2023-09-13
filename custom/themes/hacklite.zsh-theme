@@ -3,9 +3,15 @@
 # And these, too: ▶ ➤ ᛘ ↪ ※ ↙ ↗ ✔
 
 PROMPT_START_ICON="➤"
+
 PROMPT_FAIL_ICON="✘"
 PROMPT_SUPER_ICON="⚡"
 PROMPT_BG_ICON="⚙"
+
+PROMPT_USER_ICON="👤"
+PROMPT_DEVICE_ICON="🖥️"
+PROMPT_DIRECTORY_ICON="📂"
+
 
 GIT_BRANCH_ICON=""
 GIT_DETACHED_ICON="➦"
@@ -18,7 +24,9 @@ GIT_DIRTY_ICON="±"
 VENV_PREFIX_ICON="<"
 VENV_SUFFIX_ICON=">"
 
-PROMPT_END_ICON="$"
+PROMPT_END_ICON="➤"
+
+PROMPT_SEPARATOR="      "
 
 # Starting shape
 prompt_start() {
@@ -38,7 +46,8 @@ prompt_status() {
 
 # User and host
 prompt_context() {
-	echo -n "%B%{%F{5}%}%n@%m%{%F{reset_color}%}  "
+	echo -n "$PROMPT_USER_ICON %B%{%F{5}%}%n "
+	echo -n "$PROMPT_DEVICE_ICON  %B%{%F{5}%}%m$PROMPT_SEPARATOR"
 }
 
 # Working directory
@@ -47,7 +56,7 @@ prompt_dir() {
 	local full_path="%~"
 	local current_dir="${PWD##*/}"
 
-	echo -n "%B%{$fg[blue]%}$current_dir%{$reset_color%}  "
+	echo -n "$PROMPT_DIRECTORY_ICON %B%{$fg[blue]%}$current_dir$PROMPT_SEPARATOR"
 }
 
 # Auxiliar function to check if we need to pull and/or push
@@ -94,7 +103,7 @@ prompt_git() {
 	then
 		echo -n "$(git_prompt_info)"
 	fi
-	echo -n "  "
+	echo -n $PROMPT_SEPARATOR
 }
 
 
@@ -105,7 +114,7 @@ prompt_virtualenv() {
 	ZSH_THEME_VIRTUALENV_PREFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX"
 	ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 
-	echo -n "$(virtualenv_prompt_info)  "
+	echo -n "$(virtualenv_prompt_info)$PROMPT_SEPARATOR"
 }
 
 # Ending shape and user symbol in new line
@@ -117,7 +126,7 @@ prompt_end() {
 # Create prompt string
 build_prompt() {
 	RETVAL=$?
-	prompt_start
+	# prompt_start
 	prompt_status
 	prompt_context
 	prompt_dir
