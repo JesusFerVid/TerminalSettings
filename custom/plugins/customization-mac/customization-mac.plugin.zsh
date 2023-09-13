@@ -1,8 +1,3 @@
-REPOS_DIR="$HOME/Repos"
-AUTH_DIR="$HOME/.auth"
-
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home"
-
 function docker-start(){
 	echo -e "$CYAN➤ Launching Docker daemon through minikube...$RESET"
 	minikube start

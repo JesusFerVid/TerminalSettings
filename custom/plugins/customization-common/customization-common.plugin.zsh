@@ -1,28 +1,3 @@
-# COLORS
-RESET='\033[0m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-ORANGE='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-LIGHTGRAY='\033[0;37m'
-DARKGRAY='\033[1;30m'
-LIGHTRED='\033[1;31m'
-LIGHTGREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-LIGHTBLUE='\033[1;34m'
-LIGHTPURPLE='\033[1;35m'
-LIGHTCYAN='\033[1;36m'
-WHITE='\033[1;37m'
-
-# PATHS
-SETTINGS_DIR="$REPOS_DIR/TerminalSettings" # REPOS_DIR will take different values in each OS
-SETTINGS_SCRIPT="$SETTINGS_DIR/apply.zsh"
-
-# SETTINGS
-SHOW_GIT='TRUE'
-
 function install-zsh-plugins() {
 	echo -e "$CYAN➤ Installing autossuggestions plugin...$RESET"
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
@@ -71,11 +46,10 @@ function killport() {
 	fi
 }
 
-
 # Zsh settings
 alias config="code $SETTINGS_DIR"
 alias ter="cd $SETTINGS_DIR"
-alias reload="zsh $SETTINGS_SCRIPT && source $HOME/.zshrc"
+alias reload="zsh $SETTINGS_SCRIPT"
 alias hist="nano $HOME/.zsh_history"
 alias sg="show_git"
 alias hg="hide_git"

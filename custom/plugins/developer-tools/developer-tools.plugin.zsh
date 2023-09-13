@@ -1,7 +1,3 @@
-CADENCE_DIR="$REPOS_DIR/Cadence"
-GCLOUD_DIR="$HOME/Applications/google-cloud-sdk"
-MM_DIR="$HOME/Repos/MasMovil"
-
 # The next line updates PATH for the Google Cloud SDK.
 # if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/path.zsh.inc'; fi
 source $GCLOUD_DIR/path.zsh.inc
