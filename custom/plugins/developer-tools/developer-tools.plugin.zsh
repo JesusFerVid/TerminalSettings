@@ -1,4 +1,4 @@
-CADENCE_DIR="$HOME/Repos/Docker/Cadence"
+CADENCE_DIR="$REPOS_DIR/Cadence"
 GCLOUD_DIR="$HOME/Applications/google-cloud-sdk"
 MM_DIR="$HOME/Repos/MasMovil"
 
@@ -12,29 +12,24 @@ source $GCLOUD_DIR/completion.zsh.inc
 
 # Functions
 function cadence-get() {
-	echo -e "$CYAN➤ Downloading Cadence files...$RESET"
-	if wget -c https://raw.githubusercontent.com/uber/cadence/master/docker/docker-compose.yml &> /dev/null && wget -c https://raw.githubusercontent.com/uber/cadence/master/docker/prometheus/prometheus.yml &> /dev/null;
+	echo -e "$CYAN➤ Cloning Cadence repository...$RESET"
+	if gh repo clone uber/cadence $CADENCE_DIR;
 	then
 		echo -e "$GREEN✓$RESET Download complete."
+		echo -e "${BLUE}i$RESET Files downloaded in '$CADENCE_DIR'."
 	else
 		echo -e "$RED✘$RESET There was a problem downloading the files."
 	fi
-
-	echo -e "$CYAN➤ Moving files to $CADENCE_DIR...$RESET"
-	mkdir -p $CADENCE_DIR
-	mv docker-compose.yml prometheus.yml $CADENCE_DIR
-
-	echo -e "$GREEN✓$RESET Done."
 }
 
 function cadence-start() {
 	echo -e "$CYAN➤ Starting Cadence server...$RESET"
-	docker-compose -f $CADENCE_DIR/docker-compose.yml up
+	docker-compose -f $CADENCE_DIR/docker/docker-compose.yml up
 }
 
 function cadence-es-start() {
 	echo -e "$CYAN➤ Starting Cadence server with elasticsearch...$RESET"
-	docker-compose -f $CADENCE_DIR/docker-compose-es.yml up
+	docker-compose -f $CADENCE_DIR/docker/docker-compose-es.yml up
 }
 
 function health() {
