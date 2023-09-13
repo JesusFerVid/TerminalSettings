@@ -49,6 +49,9 @@ function killport() {
 # Zsh settings
 alias config="code $SETTINGS_DIR"
 alias ter="cd $SETTINGS_DIR"
+alias bak="cd $BACKUP_DIR"
+alias eenv="nano $HOME/.zshenv"
+alias renv="source $HOME/.zshenv"
 alias reload="zsh $SETTINGS_SCRIPT"
 alias hist="nano $HOME/.zsh_history"
 alias sg="show_git"
