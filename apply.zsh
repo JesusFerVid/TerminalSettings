@@ -47,5 +47,3 @@ case $OS in
 		echo "Unknown OS"
 	;;
 esac
-
-source $HOME/.zshrc
