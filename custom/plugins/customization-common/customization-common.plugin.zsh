@@ -61,6 +61,7 @@ alias hg="hide_git"
 alias please="sudo "
 alias bash="/bin/bash"
 alias clear="printf '\33c\e[3J'"
+alias cls="clear"
 
 # Misc
 alias destroy="rm -rf"
