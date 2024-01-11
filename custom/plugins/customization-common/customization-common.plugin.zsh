@@ -46,6 +46,10 @@ function killport() {
 	fi
 }
 
+function whousesport() {
+	lsof -i :$1
+}
+
 # Zsh settings
 alias config="code $SETTINGS_DIR"
 alias ter="cd $SETTINGS_DIR"
