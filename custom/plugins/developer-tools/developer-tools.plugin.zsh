@@ -7,6 +7,13 @@ source $GCLOUD_DIR/path.zsh.inc
 source $GCLOUD_DIR/completion.zsh.inc
 
 # Functions
+function b64() {
+	for encoded in $@
+	do
+		echo `echo $encoded | base64 --decode`
+	done
+}
+
 function cadence-get() {
 	echo -e "$CYAN➤ Cloning Cadence repository...$RESET"
 	if gh repo clone uber/cadence $CADENCE_DIR;
