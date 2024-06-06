@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="hacklite"
+ZSH_THEME="hack"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -75,7 +75,13 @@ PROMPT_EOL_MARK=''
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting git git-extras customization-common)
+plugins=(
+	zsh-autosuggestions
+	zsh-syntax-highlighting
+	git
+	git-extras
+	customization-common
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,6 +106,10 @@ export LANG=en_US.UTF-8
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# DEVELOPING
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home"
+export GOPATH=$HOME/Repos/Go
+export PYENV_ROOT="$HOME/.pyenv"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
