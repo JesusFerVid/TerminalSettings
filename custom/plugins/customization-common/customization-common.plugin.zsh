@@ -50,6 +50,24 @@ function whousesport() {
 	lsof -i :$1
 }
 
+# Ligaturize a font using Ligaturizer repository
+# Receives the input font name, the output font name and the format.
+function ligaturize() {
+	local LIGATURIZER_DIR="$REPOS_DIR/Ligaturizer"
+	declare -a VARIANTS=(Thin ThinItalic Light LightItalic Regular Italic RegularItalic Medium MediumItalic SemiBold SemiboldItalic Bold BoldItalic Black BlackItalic)
+
+	# &> /dev/null
+
+	for VARIANT in "${VARIANTS[@]}"
+	do
+		if fontforge -lang py -script "$LIGATURIZER_DIR/ligaturize.py" "$LIGATURIZER_DIR/fonts/$1/$1-$VARIANT.$3" --output-dir="$LIGATURIZER_DIR/fonts/output/$1" --output-name="$2";
+		then
+			echo -e "$GREEN✓$RESET Created $2-$VARIANT.$3"
+		fi
+	done
+
+}
+
 # Zsh settings
 alias config="code $SETTINGS_DIR"
 alias ter="cd $SETTINGS_DIR"

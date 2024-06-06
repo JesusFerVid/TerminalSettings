@@ -19,6 +19,11 @@ function docker-stop(){
 	echo -e "\n$GREEN✓$RESET Done."
 }
 
+function idea(){
+	echo -e "$CYAN➤ Launching IntelliJ IDEA Community Edition...$RESET"
+	open -na "IntelliJ IDEA Community Edition.app" --args "$@"
+}
+
 # Hackers stuff
 alias pat="cat $AUTH_DIR/pat 2> /dev/null"
 alias pat2="cat $AUTH_DIR/pat2 2> /dev/null"

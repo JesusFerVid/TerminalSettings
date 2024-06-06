@@ -13,7 +13,7 @@ PROMPT_DEVICE_ICON="🖥️"
 PROMPT_DIRECTORY_ICON="📂"
 
 
-GIT_BRANCH_ICON=""
+GIT_BRANCH_ICON="" # Suggested: ᛘ  
 GIT_DETACHED_ICON="➦"
 GIT_SYNCHED_ICON="✔"
 GIT_PULL_ICON="↙"
@@ -56,7 +56,7 @@ prompt_dir() {
 	local full_path="%~"
 	local current_dir="${PWD##*/}"
 
-	echo -n "$PROMPT_DIRECTORY_ICON %B%{$fg[blue]%}$current_dir$PROMPT_SEPARATOR"
+	echo -n "$PROMPT_DIRECTORY_ICON %B%{%F{blue}%}$current_dir$PROMPT_SEPARATOR"
 }
 
 # Auxiliar function to check if we need to pull and/or push
@@ -72,13 +72,13 @@ git_upstream_status() {
 				BASE=$(git merge-base @ "$UPSTREAM")
 
 				if [ $LOCAL = $REMOTE ]; then
-					echo -n "%{$fg[cyan]%}$GIT_SYNCHED_ICON"
+					echo -n "%{%F{cyan}%}$GIT_SYNCHED_ICON"
 				elif [ $LOCAL = $BASE ]; then
-					echo -n "%{$fg[blue]%}$GIT_PULL_ICON"
+					echo -n "%{%F{blue}%}$GIT_PULL_ICON"
 				elif [ $REMOTE = $BASE ]; then
-					echo -n "%{$fg[green]%}$GIT_PUSH_ICON"
+					echo -n "%{%F{green}%}$GIT_PUSH_ICON"
 				else
-					echo -n "%{$fg[blue]%}$GIT_PULL_ICON%{$fg[green]%}$GIT_PUSH_ICON"
+					echo -n "%{%F{blue}%}$GIT_PULL_ICON%{%F{green}%}$GIT_PUSH_ICON"
 				fi
 			fi
 		fi
@@ -89,15 +89,15 @@ git_upstream_status() {
 prompt_git() {
 	if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
 		if [[ "$(git rev-parse --symbolic-full-name HEAD 2> /dev/null)" = "HEAD" ]]; then
-			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}$GIT_DETACHED_ICON "
+			ZSH_THEME_GIT_PROMPT_PREFIX="%{%F{yellow}%}$GIT_DETACHED_ICON "
 		else
-			ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}$GIT_BRANCH_ICON "
+			ZSH_THEME_GIT_PROMPT_PREFIX="%{%F{yellow}%}$GIT_BRANCH_ICON "
 		fi
 	fi
 
-	ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} $GIT_CLEAN_ICON"
-	ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%} $GIT_DIRTY_ICON"
-	ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} $(git_upstream_status)"
+	ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{green}%} $GIT_CLEAN_ICON"
+	ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{red}%} $GIT_DIRTY_ICON"
+	ZSH_THEME_GIT_PROMPT_SUFFIX="%{%F{yellow}%} $(git_upstream_status)%{$reset_color%}"
 
 	if [ "$SHOW_GIT" = "TRUE" ] && [ "$HIDE_GIT" != "TRUE" ]
 	then
@@ -106,11 +106,10 @@ prompt_git() {
 	echo -n $PROMPT_SEPARATOR
 }
 
-
 # Virtual env
 prompt_virtualenv() {
-	ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{$fg[green]%}$VENV_PREFIX_ICON"
-	ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="$VENV_SUFFIX_ICON "
+	ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX="%{%F{green}%}$VENV_PREFIX_ICON"
+	ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="$VENV_SUFFIX_ICON %{$reset_color%}"
 	ZSH_THEME_VIRTUALENV_PREFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX"
 	ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 

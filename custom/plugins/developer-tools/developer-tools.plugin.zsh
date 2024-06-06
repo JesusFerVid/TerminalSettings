@@ -6,11 +6,20 @@ source $GCLOUD_DIR/path.zsh.inc
 # if [ -f '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/j.fernandez.vidal/Applications/google-cloud-sdk/completion.zsh.inc'; fi
 source $GCLOUD_DIR/completion.zsh.inc
 
-# Functions
+# FUNCTIONS
+# Decodes the passed arguments in base64
 function b64() {
 	for encoded in $@
 	do
-		echo `echo $encoded | base64 --decode`
+		echo `echo -n "$encoded" | base64 --decode`
+	done
+}
+
+# Encodes the passed arguments in base64
+function e64() {
+	for decoded in $@
+	do
+		echo `echo -n "$decoded" | base64`
 	done
 }
 
@@ -55,8 +64,19 @@ function restart() {
 	kubectl rollout restart deployment $1 -n $NAMESPACE
 }
 
+# Change default namespace
+# Usage: `ns my-namespace` and then `k get pods` will list pods on `my-namespace`
+ns() { kubectl config set-context --current --namespace="$1" }
+
+# TODO: Make it parameterized
+generate-token() {
+	kubectl -n mas-portability-sta get secrets authn.mas-portability-sta-sa -o=yaml | yq e '.data."authn-service-account.json"' | base64 -d > "$HOME/.auth/authn-sa-mas-portability-sta.json"
+	
+}
+
 # Aliases
 alias mm="hide_git && cd $MM_DIR/mm-monorepo"
+alias mmd="hide_git && cd $MM_DIR/mm-monorepo-debug"
 alias kc="show_git && cd $MM_DIR/kubernetes-clusters"
 
 # GCloud
@@ -76,7 +96,3 @@ alias kprod='kubectl --context=gke_mm-k8s-prod-01_europe-west1_mm-k8s-prod-01'
 # Shortcut to kubectl
 alias k='kubectl'
 alias mk='minikube'
-
-# Change default namespace
-# Usage: `ns my-namespace` and then `k get pods` will list pods on `my-namespace`
-ns() { kubectl config set-context --current --namespace="$1" }

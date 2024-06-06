@@ -46,6 +46,18 @@ function ginit()
 	echo -e "\n$GREEN✓$RESET Done"
 }
 
+function gsm() {
+	git switch $(git_main_branch)
+}
+
+function gsd() {
+	git switch $(git_develop_branch)
+}
+
+function gur() {
+	git fetch -u origin $(git_main_branch):$(git_main_branch) && git rebase $(git_main_branch)
+}
+
 # Deletes all git-related files and folders
 function git-destroy()
 {
@@ -67,9 +79,10 @@ function ghaliases() {
 
 # Short, easy way to clone a repo from GitHub using the token of the logged account in gh CLI
 function ghclone() {
-	git clone "https://$(gh auth token)@github.com/$1.git"
+	git clone "https://$(gh auth token)@github.com/$1.git" $2
 }
 
+# region Git Flow
 # git flow print
 # Prints branches names
 function gfprint()
@@ -466,12 +479,10 @@ function gfdb()
 	done
 	echo -e "\n$GREEN✓$RESET Cleaning completed"
 }
+# endregion
 
 # ------------------------------ ALIASES ------------------------------
 alias gac="git add . && git commit"
 alias gacm="git add . && git commit -m"
 alias gs="git status"
-alias gsm="git switch $(git_main_branch)"
-alias gsd="git switch $(git_develop_branch)"
 alias gt="git tree"
-alias gur="git fetch -u origin $(git_main_branch):$(git_main_branch) && git rebase $(git_main_branch)"
