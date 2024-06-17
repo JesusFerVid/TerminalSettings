@@ -54,8 +54,50 @@ function gsd() {
 	git switch $(git_develop_branch)
 }
 
+# Updates main branch and then rebases current branch on top of it
 function gur() {
-	git fetch -u origin $(git_main_branch):$(git_main_branch) && git rebase $(git_main_branch)
+	local MAIN_BRANCH="$(git_main_branch)" 
+
+	echo -e "$BLUE➤ Updating local $MAIN_BRANCH branch from remote...$RESET"
+	if ! git fetch -u origin $MAIN_BRANCH:$MAIN_BRANCH; then
+		echo -e "\n$RED✘$RESET Error while updating local $MAIN_BRANCH branch"
+		return 1
+	fi
+
+	echo -e "\n$BLUE➤ Rebasing current branch on top of $MAIN_BRANCH...$RESET"
+	if ! git rebase $MAIN_BRANCH; then
+		echo -e "\n$RED✘$RESET Error while rebasing"
+		return 1
+	fi
+
+	echo -e "\n$GREEN✓$RESET Done"
+}
+
+
+# Updates main branch, creates a new branch from it and finally switches to it.
+# Receives the branch name as parameter
+function gub() {
+	local MAIN_BRANCH="$(git_main_branch)" 
+	
+	echo -e "$BLUE➤ Updating local $MAIN_BRANCH branch from remote...$RESET"
+	if ! git fetch -u origin $MAIN_BRANCH:$MAIN_BRANCH; then
+		echo -e "\n$RED✘$RESET Error while updating local $MAIN_BRANCH branch"
+		return 1
+	fi
+
+	echo -e "\n$BLUE➤ Creating new $1 branch from $MAIN_BRANCH...$RESET"
+	if ! git branch $1 $MAIN_BRANCH; then
+		echo -e "\n$RED✘$RESET Error while creating new branch"
+		return 1
+	fi
+
+	echo -e "\n$BLUE➤ Switching to new branch...$RESET"
+	if ! git switch $1; then
+		echo -e "\n$RED✘$RESET Error while switching to new branch"
+		return 1
+	fi
+
+	echo -e "\n$GREEN✓$RESET Done"
 }
 
 # Deletes all git-related files and folders
