@@ -88,7 +88,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Editors
-export EDITOR='nano'
+export EDITOR='vim'
 export VISUAL="$EDITOR"
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -107,7 +107,7 @@ export LANG=en_US.UTF-8
 # export ARCHFLAGS="-arch x86_64"
 
 # DEVELOPING
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home"
+export JAVA_HOME=$(/usr/libexec/java_home -v11)
 export GOPATH=$HOME/Repos/Go
 export PYENV_ROOT="$HOME/.pyenv"
 

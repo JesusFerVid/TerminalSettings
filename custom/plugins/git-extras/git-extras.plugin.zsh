@@ -57,6 +57,7 @@ function gsd() {
 # Updates main branch and then rebases current branch on top of it
 function gur() {
 	local MAIN_BRANCH="$(git_main_branch)" 
+	local CURRENT_BRANCH="$(git branch --show-current)"
 
 	echo -e "$BLUE➤ Updating local $MAIN_BRANCH branch from remote...$RESET"
 	if ! git fetch -u origin $MAIN_BRANCH:$MAIN_BRANCH; then
@@ -64,7 +65,7 @@ function gur() {
 		return 1
 	fi
 
-	echo -e "\n$BLUE➤ Rebasing current branch on top of $MAIN_BRANCH...$RESET"
+	echo -e "\n$BLUE➤ Rebasing $CURRENT_BRANCH on top of $MAIN_BRANCH...$RESET"
 	if ! git rebase $MAIN_BRANCH; then
 		echo -e "\n$RED✘$RESET Error while rebasing"
 		return 1
@@ -72,7 +73,6 @@ function gur() {
 
 	echo -e "\n$GREEN✓$RESET Done"
 }
-
 
 # Updates main branch, creates a new branch from it and finally switches to it.
 # Receives the branch name as parameter
@@ -99,6 +99,54 @@ function gub() {
 
 	echo -e "\n$GREEN✓$RESET Done"
 }
+
+# Show own branches with their descriptions
+# function git-branches() {
+# 	local USER=$(git config user.name)
+# 	local CURRENT_BRANCH=$(git branch --show-current)
+# 	local AUTHOR
+# 	local DESCRIPTION
+
+# for BRANCH in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
+# 	AUTHOR=$(git log -n 1 --pretty=format:"%an" $BRANCH)
+# 	DESCRIPTION=$(git config branch.$BRANCH.description)
+# 	if [[ $AUTHOR = $USER ]]; then
+# 		if [[ $BRANCH = $CURRENT_BRANCH ]]; then
+# 			echo -ne "$YELLOW$BRANCH$RESET"
+# 		else
+# 			echo -ne "$CYAN$BRANCH$RESET"
+# 		fi
+# 		if [[ $DESCRIPTION != "" ]]; then
+# 			echo -ne " → $DESCRIPTION"
+# 		fi
+# 		echo "";
+# 	fi
+# done | sort 
+# }
+
+function git-branches() {
+	local USER=$(git config user.name)
+	local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+	local AUTHOR
+	local DESCRIPTION
+
+	for BRANCH in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
+		AUTHOR=$(git log -n 1 --pretty=format:"%an" $BRANCH)
+		DESCRIPTION=$(git config branch.$BRANCH.description)
+		if [[ $AUTHOR = $USER ]]; then
+			if [[ $BRANCH = $CURRENT_BRANCH ]]; then
+				echo -ne "$YELLOW$BRANCH$RESET"
+			else
+				echo -ne "$CYAN$BRANCH$RESET"
+			fi
+			if [[ $DESCRIPTION != "" ]]; then
+				echo -ne " → $DESCRIPTION"
+			fi
+			echo "";
+		fi
+	done | sort
+}
+
 
 # Deletes all git-related files and folders
 function git-destroy()

@@ -54,24 +54,59 @@ function health() {
 	curl http://0.0.0.0:$PORT/health
 }
 
-function restart() {
-	local NAMESPACE="provision-sta"
-
-	if [[ $2 != "" ]]; then
-		NAMESPACE=$2
-	fi
-	
-	kubectl rollout restart deployment $1 -n $NAMESPACE
-}
-
 # Change default namespace
 # Usage: `ns my-namespace` and then `k get pods` will list pods on `my-namespace`
-ns() { kubectl config set-context --current --namespace="$1" }
+function ns() {
+	kubectl config set-context --current --namespace="$1"
+}
 
-# TODO: Make it parameterized
-generate-token() {
-	kubectl -n mas-portability-sta get secrets authn.mas-portability-sta-sa -o=yaml | yq e '.data."authn-service-account.json"' | base64 -d > "$HOME/.auth/authn-sa-mas-portability-sta.json"
-	
+# Change cluster. Receives environment as parameter.
+function cluster() {
+    local context_string
+
+    case "$1" in
+			dev) context_string="$K8S_CONTEXT_DEV" ;;
+			sta) context_string="$K8S_CONTEXT_STA" ;;
+      prod) context_string="$K8S_CONTEXT_PROD" ;;
+      *) echo -e "$RED✘$RESET Unknown environment"; return 1 ;;
+    esac
+
+		if ! kubectl config use-context $context_string; then
+			echo -e "$RED✘$RESET Error while switching context"
+			return 1
+	fi
+}
+
+# Check for pods
+function pods() {
+	kubectl get pods -n $1 -l app=$2
+}
+
+# Check deployed version of a pod
+function version() {
+	kubectl get rs -n $1 --selector=app=$2 --sort-by=.metadata.creationTimestamp -o jsonpath="{.items[-1].metadata.labels.version}"
+}
+
+# Restart a delployment
+function restart() {	
+	kubectl rollout restart deployment $2 -n $1
+}
+
+# Get service-account from specified cluster
+function get-sa() {
+	# ns()
+	kubectl -n $1 get secrets authn.$1-sa -o=yaml | yq e '.data."authn-service-account.json"' | base64 -d > ~/.auth/authn-sa-$1.json
+}
+
+# Get access_token from specified cluster
+function get-authn-token() {
+	$MM_DIR/mm-monorepo/pkg/mas-stack/security/auth/serviceaccount-client/go/sa-client access-token -v -f ~/.auth/authn-sa-$1.json | tail -n 1
+}
+
+function validate-portabilities() {
+	cd $HOME/Applications/PortabilityProcessor
+	zsh validate.sh && code $VALIDATOR_DIR
+	cd "$(cd - > /dev/null && pwd)"
 }
 
 # Aliases
@@ -81,6 +116,7 @@ alias kc="show_git && cd $MM_DIR/kubernetes-clusters"
 
 # GCloud
 # Switch between clusters
+# gke_mm-k8s-dev-01_europe-southwest1_mm-k8s-sta-eusw1-01
 alias dev='kubectl config use-context gke_mm-k8s-dev-01_europe-west1_mm-k8s-dev-01'
 alias dev-m='kubectl config use-context gke_mm-k8s-dev-01_europe-southwest1_mm-k8s-dev-eusw1-01'
 alias dev2='kubectl config use-context gke_mm-k8s-dev-02_europe-west2_mm-k8s-dev-02'

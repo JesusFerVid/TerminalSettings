@@ -65,8 +65,8 @@ prompt_git() {
 		if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]]; then
 			echo -n "%{%F{yellow}%}"
 			prompt_git_branch
-			prompt_git_worktree_status
-			prompt_git_upstream_status
+			# prompt_git_worktree_status
+			# prompt_git_upstream_status
 			echo -n "%{$reset_color%"
 		fi
 	fi
@@ -77,7 +77,7 @@ prompt_git_branch() {
 	if [[ "$(git rev-parse --symbolic-full-name HEAD 2> /dev/null)" = "HEAD" ]]; then
 		echo -n "$GIT_DETACHED_ICON $(git rev-parse --short HEAD)"
 	else
-		echo -n "$GIT_BRANCH_ICON $(git rev-parse --abbrev-ref HEAD)"
+		echo -n "$GIT_BRANCH_ICON $(git branch --show-current)"
 	fi
 }
 

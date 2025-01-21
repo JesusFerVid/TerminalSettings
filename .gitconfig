@@ -6,7 +6,11 @@
 	quotepath = false
 [alias]
 	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
+	# branches = ! $(git-branches)
+	description = branch --edit-description
+	# destroy = ! $(git-destroy)
 	email = config user.email
+	info = ! git config branch.$(git branch --show-current).description
 	fpush = push --force-with-lease
 	ffpush = push --force
 	now = commit --amend --date=now

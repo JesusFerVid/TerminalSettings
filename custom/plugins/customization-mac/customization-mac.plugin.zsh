@@ -1,8 +1,3 @@
-# DIRECTORIES
-MM_DIR="$REPOS_DIR/MasMovil"
-CADENCE_DIR="$REPOS_DIR/Cadence"
-GCLOUD_DIR="$HOME/Applications/google-cloud-sdk"
-
 function docker-start(){
 	echo -e "$CYAN➤ Launching Docker daemon through minikube...$RESET"
 	minikube start
