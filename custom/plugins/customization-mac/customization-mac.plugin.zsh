@@ -24,6 +24,9 @@ function idea(){
 	open -na "IntelliJ IDEA Community Edition.app" --args "$@"
 }
 
+# System
+alias unwarn="sudo xattr -d -r com.apple.quarantine"
+
 # Hackers stuff
 alias pat="cat $AUTH_DIR/pat 2> /dev/null"
 alias pat2="cat $AUTH_DIR/pat2 2> /dev/null"
