@@ -25,6 +25,7 @@ SETTINGS_DIR="$REPOS_DIR/TerminalSettings"
 SETTINGS_SCRIPT="$SETTINGS_DIR/apply.zsh"
 BACKUP_DIR="$REPOS_DIR/BackupSettings"
 AUTH_DIR="$HOME/.auth"
+OBSIDIAN_DIR="$HOME/Obsidian Vaults"
 
 function install-zsh-plugins() {
 	echo -e "$CYAN➤ Installing autossuggestions plugin...$RESET"
@@ -94,6 +95,29 @@ function ligaturize() {
 		fi
 	done
 
+}
+
+# Vault sync for Obsidian settings
+function vsync() {
+    local source_vault="$OBSIDIAN_DIR/$1"
+    local base_dir=$(dirname "$source_vault")
+    local source_obsidian="$source_vault/.obsidian"
+
+    if [ ! -d "$source_obsidian" ]; then
+        echo -e "$RED✘$RESET Source is not an Obsidian vault"
+        return 1
+    fi
+
+    find "$base_dir" -mindepth 1 -maxdepth 1 -type d | while read -r vault; do
+        if [ "$vault" != "$source_vault" ] && [ -d "$vault/.obsidian" ]; then
+            rsync -a --delete "$source_obsidian/" "$vault/.obsidian/"
+            if [ $? -eq 0 ]; then
+                echo -e "$GREEN✓$RESET Successfully synced settings to $vault"
+            else
+                echo -e "$RED✘$RESET Error syncing settings to $vault"
+            fi
+        fi
+    done
 }
 
 # Zsh settings
